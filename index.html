@@ -21,6 +21,7 @@
             justify-content: center;
             align-items: center;
             padding: 40px 20px;
+            overflow-x: hidden;
         }
 
         .bg-glow {
@@ -47,24 +48,9 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
 
-        h2 {
-            color: #a29bfe;
-            font-weight: 400;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 10px;
-        }
+        h2 { color: #a29bfe; font-weight: 400; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 10px; }
+        h1 { color: #fff; font-size: 2.8rem; font-weight: 800; margin-bottom: 45px; }
 
-        h1 {
-            color: #fff;
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 45px;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        /* Container Grid */
         .member-container {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -82,10 +68,10 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            grid-column: span 2; /* Default 3 kolom di layar besar */
+            grid-column: span 2;
+            cursor: pointer;
         }
 
-        /* Foto Member */
         .member-photo {
             width: 90px;
             height: 90px;
@@ -94,75 +80,63 @@
             border: 3px solid #a29bfe;
             object-fit: cover;
             background: #24243e;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
         }
 
-        .member-name {
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 5px;
-            line-height: 1.3;
-        }
+        .member-name { font-weight: 600; font-size: 1rem; margin-bottom: 5px; }
+        .member-npm { font-size: 0.8rem; color: #a29bfe; font-weight: 400; background: rgba(162, 155, 254, 0.1); padding: 2px 10px; border-radius: 20px; }
 
-        .member-npm {
-            font-size: 0.8rem;
-            color: #a29bfe;
-            font-weight: 400;
-            background: rgba(162, 155, 254, 0.1);
-            padding: 2px 10px;
-            border-radius: 20px;
-        }
-
-        /* Penataan khusus untuk member ke-4 dan ke-5 agar di tengah (baris kedua) */
-        .member-item:nth-child(4) {
-            grid-column: 2 / span 2;
-        }
-        .member-item:nth-child(5) {
-            grid-column: 4 / span 2;
-        }
+        .member-item:nth-child(4) { grid-column: 2 / span 2; }
+        .member-item:nth-child(5) { grid-column: 4 / span 2; }
 
         .member-item:hover {
             background: rgba(162, 155, 254, 0.15);
             transform: translateY(-10px);
             border-color: rgba(162, 155, 254, 0.5);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
 
-        .btn {
-            margin-top: 50px;
-            display: inline-block;
-            padding: 14px 40px;
-            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+        /* Modal Style */
+        .desc-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+
+        .desc-content {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 30px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            animation: zoomIn 0.3s ease forwards;
             color: white;
-            text-decoration: none;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-btn {
+            margin-top: 25px;
+            background: #a29bfe;
+            color: #0f0c29;
+            padding: 10px 30px;
             border-radius: 50px;
             font-weight: 600;
-            transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+            cursor: pointer;
+            display: inline-block;
         }
 
-        .btn:hover {
-            box-shadow: 0 15px 30px rgba(108, 92, 231, 0.5);
-            transform: scale(1.05);
-        }
-
-        /* Responsif Mobile */
-        @media (max-width: 768px) {
-            .member-item, 
-            .member-item:nth-child(4), 
-            .member-item:nth-child(5) {
-                grid-column: span 3; /* Jadi 2 kolom di tablet */
-            }
-        }
-
-        @media (max-width: 500px) {
-            h1 { font-size: 2rem; }
-            .member-item, 
-            .member-item:nth-child(4), 
-            .member-item:nth-child(5) {
-                grid-column: span 6; /* Jadi 1 kolom di HP */
-            }
-        }
+        @media (max-width: 768px) { .member-item, .member-item:nth-child(4), .member-item:nth-child(5) { grid-column: span 3; } }
+        @media (max-width: 500px) { h1 { font-size: 2rem; } .member-item, .member-item:nth-child(4), .member-item:nth-child(5) { grid-column: span 6; } }
     </style>
 </head>
 <body>
@@ -174,44 +148,62 @@
         <h1>NAMA KELOMPOK</h1>
         
         <div class="member-container">
-            <!-- Member 1 -->
-            <div class="member-item">
-                <img src="https://via.placeholder.com/150" alt="Akmal Rahman" class="member-photo">
+            <!-- Akmal -->
+            <div class="member-item" onclick="showDesc('Akmal Rahman', '10123092', 'Deskripsi tentang Akmal Rahman.')">
+                <img src="https://raw.githubusercontent.com/IndraAdityaW/apalah/main/akmal.jpg" alt="Akmal Rahman" class="member-photo">
                 <div class="member-name">Akmal Rahman</div>
                 <div class="member-npm">10123092</div>
             </div>
 
-            <!-- Member 2 -->
-            <div class="member-item">
-                <img src="https://via.placeholder.com/150" alt="Alan Delon Setiawan" class="member-photo">
+            <!-- Alan -->
+            <div class="member-item" onclick="showDesc('Alan Delon Setiawan', '10123095', 'Deskripsi tentang Alan Delon Setiawan.')">
+                <img src="https://raw.githubusercontent.com/IndraAdityaW/apalah/main/alan.jpg" alt="Alan Delon Setiawan" class="member-photo">
                 <div class="member-name">Alan Delon Setiawan</div>
                 <div class="member-npm">10123095</div>
             </div>
 
-            <!-- Member 3 -->
-            <div class="member-item">
-                <img src="https://raw.githubusercontent.com/IndraAdityaW/apalah/main/german-licciardi-oda1.jpg](https://raw.githubusercontent.com/IndraAdityaW/apalah/main/german-licciardi-oda1.jpg" alt="Indra Aditya Wibowo" class="member-photo">
+            <!-- Indra -->
+            <div class="member-item" onclick="showDesc('Indra Aditya Wibowo', '10123532', 'Indra bertugas menyusun struktur kode HTML serta mengelola aset visual kelompok.')">
+                <img src="https://raw.githubusercontent.com/IndraAdityaW/apalah/main/german-licciardi-oda1.jpg" alt="Indra Aditya Wibowo" class="member-photo">
                 <div class="member-name">Indra Aditya Wibowo</div>
                 <div class="member-npm">10123532</div>
             </div>
 
-            <!-- Member 4 -->
-            <div class="member-item">
-                <img src="https://via.placeholder.com/150" alt="Muhammad Zaki Abdullah" class="member-photo">
+            <!-- Zaki -->
+            <div class="member-item" onclick="showDesc('Muhammad Zaki Abdullah', '10123925', 'Deskripsi tentang Muhammad Zaki Abdullah.')">
+                <img src="https://raw.githubusercontent.com/IndraAdityaW/apalah/main/zaki.jpg" alt="Muhammad Zaki Abdullah" class="member-photo">
                 <div class="member-name">Muhammad Zaki Abdullah</div>
                 <div class="member-npm">10123925</div>
             </div>
 
-            <!-- Member 5 -->
-            <div class="member-item">
+            <!-- Ridlo (Masih Placeholder) -->
+            <div class="member-item" onclick="showDesc('Ridlo Aminudin', '11123172', 'Deskripsi tentang Ridlo Aminudin.')">
                 <img src="https://via.placeholder.com/150" alt="Ridlo Aminudin" class="member-photo">
                 <div class="member-name">Ridlo Aminudin</div>
                 <div class="member-npm">11123172</div>
             </div>
         </div>
 
-        <a href="#" class="btn">Kenali Lebih Jauh</a>
+        <p style="color: rgba(255,255,255,0.5); margin-top: 30px; font-size: 0.8rem;">Klik pada kartu untuk deskripsi anggota</p>
     </div>
 
+    <div class="desc-overlay" id="descOverlay" onclick="closeDesc()">
+        <div class="desc-content" onclick="event.stopPropagation()">
+            <h3 id="descName" style="font-size: 1.5rem; margin-bottom: 5px;">Nama Member</h3>
+            <span id="descNPM" style="color: #a29bfe; font-size: 1rem; font-weight: 600;">NPM</span>
+            <p id="descText" style="margin-top: 20px; line-height: 1.6; color: #ccc; font-size: 0.95rem;"></p>
+            <div class="close-btn" onclick="closeDesc()">Tutup</div>
+        </div>
+    </div>
+
+    <script>
+        function showDesc(name, npm, text) {
+            document.getElementById('descName').innerText = name;
+            document.getElementById('descNPM').innerText = "NPM: " + npm;
+            document.getElementById('descText').innerText = text;
+            document.getElementById('descOverlay').style.display = 'flex';
+        }
+        function closeDesc() { document.getElementById('descOverlay').style.display = 'none'; }
+    </script>
 </body>
 </html>
